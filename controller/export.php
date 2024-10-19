@@ -27,6 +27,8 @@ $conn->close();
 
 // Export based on file format
 switch ($fileFormat) {
+
+    //to export in CSV format
     case 'csv':
         header('Content-Type: text/csv');
         header('Content-Disposition: attachment;filename="export.csv"');
@@ -40,6 +42,7 @@ switch ($fileFormat) {
         fclose($output);
         break;
 
+    //to export in Excel format
     case 'excel':
         header('Content-Type: application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
         header('Content-Disposition: attachment;filename="export.xlsx"');
@@ -54,6 +57,7 @@ switch ($fileFormat) {
         $writer->save('php://output');
         break;
 
+    //to export in PDF format
     case 'pdf':
         header('Content-Type: application/pdf');
         header('Content-Disposition: attachment;filename="export.pdf"');
@@ -81,12 +85,14 @@ switch ($fileFormat) {
         $pdf->Output('php://output', 'D');
         break;
 
+    //to export in JSON format
     case 'json':
         header('Content-Type: application/json');
         header('Content-Disposition: attachment;filename="export.json"');
         echo json_encode($data);
         break;
 
+    //to export in XML format
     case 'xml':
         header('Content-Type: text/xml');
         header('Content-Disposition: attachment;filename="export.xml"');
@@ -97,6 +103,7 @@ switch ($fileFormat) {
         echo $xml->asXML();
         break;
 
+    //to export in HTML format 
     case 'html':
         header('Content-Type: text/html');
         header('Content-Disposition: attachment;filename="export.html"');
@@ -118,6 +125,7 @@ switch ($fileFormat) {
         echo '</table>';
         break;
 
+    //to export in text format 
     case 'txt':
         header('Content-Type: text/plain');
         header('Content-Disposition: attachment;filename="export.txt"');
