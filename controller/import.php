@@ -82,8 +82,9 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
     $headers = [];
     try {
         switch ($fileType) {
+
+            // Handle CSV import
             case 'csv':
-                // Handle CSV import
                 if (($handle = fopen($fileTmpName, "r")) !== FALSE) {
                     $headers = fgetcsv($handle, 1000, ","); // Read headers
                     while (($row = fgetcsv($handle, 1000, ",")) !== FALSE) {
@@ -95,6 +96,7 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
                 }
                 break;
 
+            // Handle Excel import
             case 'excel':
                 try {
                     $spreadsheet = IOFactory::load($fileTmpName); // Load the spreadsheet
@@ -147,6 +149,8 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
                     exit;
                 }
                 break;
+
+            // Handle HTML import
             case 'html':
                 // Handle HTML import using DOMDocument
                 $html = file_get_contents($fileTmpName);
@@ -173,6 +177,7 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
                 }
                 break;
 
+            // Handle TEXT import
             case 'txt':
                 // Handle TXT import (tab-separated values)
                 $textData = file_get_contents($fileTmpName);
@@ -186,6 +191,7 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
                 }
                 break;
 
+            // Handle XML import
             case 'xml':
                 try {
                     // Load the XML file
@@ -222,6 +228,7 @@ if (isset($_FILES['fileUpload']) && $_FILES['fileUpload']['error'] == UPLOAD_ERR
                 }
                 break;
 
+                // Handle JSON import
                 case 'json':
                     try {
                         // Read the JSON file content
